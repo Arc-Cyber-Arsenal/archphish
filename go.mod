@@ -1,4 +1,4 @@
-module github.com/Cyber-Arsenal/archphish
+module github.com/Arc-Cyber-Arsenal/archphish
 
 go 1.22
 

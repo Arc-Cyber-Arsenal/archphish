@@ -10,7 +10,7 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/Cyber-Arsenal/archphish/log"
+	"github.com/Arc-Cyber-Arsenal/archphish/log"
 )
 
 type Nameserver struct {

@@ -10,9 +10,9 @@ import (
 	"regexp"
 
 	"github.com/caddyserver/certmagic"
-	"github.com/Cyber-Arsenal/archphish/core"
-	"github.com/Cyber-Arsenal/archphish/database"
-	"github.com/Cyber-Arsenal/archphish/log"
+	"github.com/Arc-Cyber-Arsenal/archphish/core"
+	"github.com/Arc-Cyber-Arsenal/archphish/database"
+	"github.com/Arc-Cyber-Arsenal/archphish/log"
 	"go.uber.org/zap"
 
 	"github.com/fatih/color"

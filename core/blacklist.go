@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Cyber-Arsenal/archphish/log"
+	"github.com/Arc-Cyber-Arsenal/archphish/log"
 )
 
 type BlockIP struct {

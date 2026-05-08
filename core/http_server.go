@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Cyber-Arsenal/archphish/log"
+	"github.com/Arc-Cyber-Arsenal/archphish/log"
 )
 
 type HttpServer struct {

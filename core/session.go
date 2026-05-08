@@ -3,7 +3,7 @@ package core
 import (
 	"time"
 
-	"github.com/Cyber-Arsenal/archphish/database"
+	"github.com/Arc-Cyber-Arsenal/archphish/database"
 )
 
 type Session struct {

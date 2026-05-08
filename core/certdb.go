@@ -16,7 +16,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Cyber-Arsenal/archphish/log"
+	"github.com/Arc-Cyber-Arsenal/archphish/log"
 
 	"github.com/caddyserver/certmagic"
 )
