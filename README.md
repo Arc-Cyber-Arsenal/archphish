@@ -1,7 +1,7 @@
 <p align="center">
-  <img alt="archphish Logo" src="https://raw.githubusercontent.com/Archsec-Emman/archphish/master/media/img/archphish-logo-512.png" height="160" />
+  <img alt="archphish Logo" src="https://i.ibb.co/s9J5QK30/Gemini-Generated-Image-skxiy0skxiy0skxi.png" height="160" />
   <p align="center">
-    <img alt="archphish Title" src="https://raw.githubusercontent.com/Archsec-Emman/archphish/master/media/img/archphish-title-black-512.png" height="60" />
+    <img alt="archphish Title" src="https://i.ibb.co/s9J5QK30/Gemini-Generated-Image-skxiy0skxiy0skxi.png" height="60" />
   </p>
 </p>
 
