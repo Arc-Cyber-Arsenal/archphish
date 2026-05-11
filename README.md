@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="archphish Logo" src="https://i.ibb.co/s9J5QK30/Gemini-Generated-Image-skxiy0skxiy0skxi.png" height="160" />
+  <img alt="archphish Logo" src="https://raw.githubusercontent.com/Arc-Cyber-Arsenal/archphish/main/arcpish.png" height="160" />
   <p align="center">
 </p>
 
