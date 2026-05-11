@@ -9,7 +9,7 @@
 
 **Advanced Man-in-the-Middle Phishing Framework with 2FA Bypass**
 
-archphish is a penetration testing tool that uses transparent reverse‑proxy techniques to capture login credentials and session cookies, even against websites protected by two‑factor authentication. It is a rebranded fork of the original evilginx2, maintained by **Archsec‑Emman**.
+archphish is a penetration testing tool that uses transparent reverse‑proxy techniques to capture login credentials and session cookies, even against websites protected by two‑factor authentication. Provided by **Archsec‑Emman**.
 
 > **Disclaimer:** Use only on systems you own or have explicit permission to test. The author is not responsible for any misuse.
 
