@@ -1,8 +1,6 @@
 <p align="center">
   <img alt="archphish Logo" src="https://i.ibb.co/s9J5QK30/Gemini-Generated-Image-skxiy0skxiy0skxi.png" height="160" />
   <p align="center">
-    <img alt="archphish Title" src="https://i.ibb.co/s9J5QK30/Gemini-Generated-Image-skxiy0skxiy0skxi.png" height="60" />
-  </p>
 </p>
 
 # archphish
