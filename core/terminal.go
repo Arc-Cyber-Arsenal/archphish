@@ -19,9 +19,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Arc-Cyber-Arsenal/archphish/database"
-	"github.com/Arc-Cyber-Arsenal/archphish/log"
-	"github.com/Arc-Cyber-Arsenal/archphish/parser"
+	"github.com/Archsec-Emman/archphish/database"
+	"github.com/Archsec-Emman/archphish/log"
+	"github.com/Archsec-Emman/archphish/parser"
 
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"

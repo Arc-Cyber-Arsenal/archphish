@@ -40,8 +40,8 @@ import (
 	"github.com/inconshreveable/go-vhost"
 	http_dialer "github.com/mwitkow/go-http-dialer"
 
-	"github.com/Arc-Cyber-Arsenal/archphish/database"
-	"github.com/Arc-Cyber-Arsenal/archphish/log"
+	"github.com/Archsec-Emman/archphish/database"
+	"github.com/Archsec-Emman/archphish/log"
 )
 
 const (

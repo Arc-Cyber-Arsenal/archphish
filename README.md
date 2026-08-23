@@ -1,174 +1,75 @@
 <p align="center">
-  <img alt="archphish Logo" src="https://raw.githubusercontent.com/Arc-Cyber-Arsenal/archphish/main/arcpish.png" height="160" />
-  <p align="center">
+  <img alt="ArchPhish Logo" src="https://raw.githubusercontent.com/Archsec-Emman/archphish/main/archphish.png" height="160" />
 </p>
-
 
 # ArchPhish
 
-[![Language](https://img.shields.io/badge/Go-1.20+-00ADD8?logo=go)](https://go.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go 1.22+](https://img.shields.io/badge/Go-1.22+-00ADD8?logo=go)](https://go.dev/)
+[![License](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macos-lightgrey)](https://github.com/Archsec-Emman/archphish)
+[![Build](https://img.shields.io/github/actions/workflow/status/Archsec-Emman/archphish/build.yml?branch=main&label=build)](https://github.com/Archsec-Emman/archphish/actions)
 
-**An Advanced Man-in-the-Middle Phishing Framework with 2FA Bypass**  
-ArchPhish is a professional-grade penetration testing tool that uses transparent reverse‑proxy techniques to capture login credentials and session cookies, even from websites protected by two‑factor authentication (2FA).
+**A maintained fork of [evilginx2](https://github.com/kgretzky/evilginx2) — the man-in-the-middle attack framework used for authorized phishing-simulation campaigns and red-team engagements.**
 
-> **⚠️ IMPORTANT DISCLAIMER:** This tool is intended **exclusively for authorised security testing, educational research, and defending your own systems**. Use it only on systems you own or have explicit written permission to test. The author is not responsible for any misuse or damage caused by this software.
+> **Credits:** All credit for the framework belongs to [Kuba Gretzky](https://github.com/kgretzky) (`evilginx2`, based on version 3.3.0). This fork exists to keep the open-source edition buildable and dependency-clean. Consider supporting the original author via the funding links in [.github/FUNDING.yml](.github/FUNDING.yml) or checking out [Evilginx Pro](https://evilginx.com/).
+
+> **DISCLAIMER:** This tool is intended **exclusively for authorised security testing, security-awareness training, and research on systems you own or have explicit written permission to test**. Phishing real users without authorisation is illegal. The authors are not responsible for misuse.
 
 ---
 
-## 📖 Overview
+## Changes in this fork
 
-ArchPhish is designed for red teams and security professionals to assess an organisation's resilience against advanced phishing attacks. By acting as a stealthy reverse proxy, it intercepts traffic between a target and a legitimate website, capturing credentials and session tokens in real time, even when the target site uses two-factor authentication (2FA) or other multi-factor authentication (MFA) mechanisms. It is a cross‑platform, single‑binary tool written in Go, making it easy to deploy in diverse engagement environments.
+Compared to upstream `evilginx2` 3.3.0:
 
-## ✨ Key Features
+- **Builds again** — fixed unused imports left behind after modifications; `go build ./...` and `go vet ./...` pass on Go 1.22.
+- **Evilginx Pro upsell prompt removed** from the console banner.
+- **Module path updated** to `github.com/Archsec-Emman/archphish`.
+- **CI** — GitHub Actions workflow building and vetting on Linux, Windows and macOS (the legacy `.travis.yml` targeting Go 1.10 was removed).
 
-- **🔒 Transparent Reverse Proxy** – Sits between the user and the target website, intercepting traffic without triggering TLS certificate warnings (thanks to automated Let's Encrypt integration).
-- **🔑 2FA/MFA Bypass** – Captures session cookies **after** the user has completed the multi-factor authentication process, allowing the attacker to hijack the authenticated session.
-- **📄 Phishlets** – Uses YAML-based templates to define the behaviour for any target (e.g., Google, Microsoft, GitHub, banking portals). The modular system makes it easy to add new targets or customise existing ones.
-- **📡 Live Session View** – Monitor captured credentials, cookies, and traffic in real time via a terminal UI or through a structured JSON API.
-- **🎣 Lure System** – Create custom landing pages and configure stealthy redirects to send victims to the legitimate site after their data is captured.
-- **⚙️ Cross‑Platform** – A single, statically-linked binary runs on Windows, Linux, and macOS, with no external dependencies.
-- **📊 Built-in Analytics** – Tracks engagement metrics such as click-through rates and session durations, useful for campaign reporting.
+Everything else — phishlet format, session capture logic, console commands — behaves exactly like upstream. Consult the [upstream repository](https://github.com/kgretzky/evilginx2) for in-depth documentation and phishlet-writing guides.
 
-## 🚀 Quick Start
+## What it does
 
-### Prerequisites
-- Go 1.20 or later (only required for building from source)
-- Git
-- A domain name (for TLS certificate issuance)
+ArchPhish acts as a transparent reverse proxy for a target site. Visitors land on your infrastructure through lures, see the genuine site (valid TLS via Let's Encrypt or custom certificates), and log in as usual. Credentials and session cookies are captured in real time — including post-authentication session tokens — while the victim continues to the real site. Sessions can then be replayed with the captured cookies.
 
-### Installation
+This is the standard technique used in authorised phishing simulations to demonstrate why MFA alone does not stop session-cookie theft, and why phishing-resistant authentication (FIDO2/WebAuthn) matters.
 
-#### Option 1: Download a Pre-built Binary (Recommended)
-Visit the [Releases](https://github.com/Archsec-Emman/archphish/releases) page and download the latest version for your operating system.
+## Quick start
 
-#### Option 2: Build from Source
+### Build from source
+
 ```bash
-# Clone the repository
 git clone https://github.com/Archsec-Emman/archphish.git
 cd archphish
-
-# Build the binary
 go build -o archphish .
-
-# (Optional) Install system-wide
-sudo cp archphish /usr/local/bin/
 ```
 
-### Basic Usage
-```bash
-# Run ArchPhish with a phishlet for a target (e.g., "linkedin")
-./archphish -p 443 -phishlet linkedin -domain your-domain.com
-```
-
-Once running, ArchPhish will:
-1. Obtain a valid TLS certificate for `your-domain.com` via Let's Encrypt.
-2. Serve the fake login page defined in the `linkedin` phishlet.
-3. Proxy all subsequent requests to the real LinkedIn.
-4. Log captured credentials and session cookies to the console and a database.
-
-## 📚 Detailed Usage
-
-### Command-Line Options
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-p` | Port to listen on (usually 443 for HTTPS) | `443` |
-| `-phishlet` | Name of the phishlet to use (e.g., `google`, `microsoft`) | Required |
-| `-domain` | Your domain name (must be pointed to the server) | Required |
-| `-config` | Path to a custom configuration file | `config.yml` |
-| `-lure` | Redirect URL after credential capture | None |
-| `-verbose` | Enable verbose logging | `false` |
-| `-api` | Enable the JSON API on port 8080 | `false` |
-
-### Creating a Custom Phishlet
-
-Phishlets are YAML files stored in the `phishlets/` directory. A basic template looks like this:
-
-```yaml
-name: "example"
-author: "Your Name"
-version: "1.0"
-
-# The target's URL
-url: "https://example.com"
-
-# Regex patterns to identify login pages
-auth_regex:
-  - "login"
-  - "signin"
-
-# Credentials extraction rules
-credentials:
-  username: "input[name='username']"
-  password: "input[name='password']"
-  # For 2FA tokens
-  token: "input[name='totp']"
-
-# Post-capture behaviour
-redirect_url: "https://example.com/dashboard"
-```
-
-### Live Session Monitoring
-
-With the JSON API enabled (`-api`), you can integrate ArchPhish with other tools or build a custom dashboard:
+### Run
 
 ```bash
-# Get all captured sessions
-curl http://localhost:8080/api/sessions
-
-# Get details of a specific session
-curl http://localhost:8080/api/session/123
+sudo ./archphish                        # production: needs ports 80/443 and a domain
+./archphish -p ./phishlets -t ./redirectors   # custom paths
+./archphish --developer                 # developer mode (self-signed certs, local testing)
 ```
 
-## 📂 Project Structure
+> Note: developer mode (`--developer`) generates self-signed certificates instead of contacting Let's Encrypt, for local testing only.
+
+### Basic console flow
 
 ```
-archphish/
-├── core/               # Core proxy, TLS, and HTTP logic
-├── phishlets/          # YAML templates for each target
-├── database/           # SQLite/PostgreSQL storage layer
-├── log/                # Logging utilities
-├── parser/             # HTML parsing and form manipulation
-├── redirectors/        # URL redirection handlers
-├── vendor/             # Third-party dependencies
-├── main.go             # Application entry point
-├── go.mod              # Go module definition
-├── LICENSE             # MIT License
-├── Makefile            # Build automation
-└── README.md           # This file
+config domain yourdomain.tld
+config ip <your-server-ip>
+phishlets hostname microsoft <sub>.yourdomain.tld
+phishlets enable microsoft
+lures create microsoft
+lures get-url 0
+sessions                # watch captured sessions live
 ```
 
-## 🛠️ Development & Contribution
+## Legal
 
-We welcome contributions that improve the tool’s robustness, add new phishlets, or enhance documentation. Please follow the standard GitHub flow:
+Use of this software constitutes agreement to use it only for lawful, authorised purposes: your own systems, engagement scopes with written permission, or awareness training programmes. Intercepting credentials of real users without authorisation violates computer-fraud laws in most jurisdictions.
 
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/amazing-feature`).
-3. Commit your changes (`git commit -m 'Add some amazing feature'`).
-4. Push to the branch (`git push origin feature/amazing-feature`).
-5. Open a Pull Request.
+## License
 
-**Development Requirements:**
-- Go 1.20+
-- Make (optional, for using the Makefile)
-
-**Run Tests:**
-```bash
-go test ./...
-```
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 📬 Contact & Support
-
-- **GitHub Issues**: [https://github.com/Archsec-Emman/archphish/issues](https://github.com/Archsec-Emman/archphish/issues)
-- **Author**: [Archsec-Emman](https://github.com/Archsec-Emman)
-
----
-
-*If you find ArchPhish useful in your professional security assessments, please consider giving the repository a star.* ⭐
-```
+BSD-3-Clause — see [LICENSE](LICENSE). Copyright (c) 2018-2023 Kuba Gretzky, portions Copyright (c) 2025 Archsec-Emman.
